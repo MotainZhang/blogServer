@@ -160,7 +160,7 @@ const devMode = process.env.NODE_ENV === 'development'
 
 const config = {
   PORT: 6060, // 启动端口
-  ADMIN_GITHUB_LOGIN_NAME: 'gershonv', // 博主的 github 登录的账户名 user
+  ADMIN_GITHUB_LOGIN_NAME: '', // 博主的 github 登录的账户名 user
   GITHUB: {
     client_id: '',
     client_secret: '',
