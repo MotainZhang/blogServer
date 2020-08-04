@@ -237,7 +237,7 @@ if (!devMode) {
     user: '', // generated ethereal user
     pass: '', // generated ethereal password 授权码 而非 密码
   }
-  config.EMAIL_NOTICE.WEB_HOST = 'https://guodada.fun'
+  config.EMAIL_NOTICE.WEB_HOST = ''
 }
 
 module.exports = config
