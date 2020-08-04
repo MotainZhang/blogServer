@@ -121,17 +121,17 @@ import MyInfo from '@/views/web/about/MyInfo'
 export const API_BASE_URL = 'http://127.0.0.1:6060'
 
 // project config
-export const HEADER_BLOG_NAME = '郭大大的博客' // header title 显示的名字
+export const HEADER_BLOG_NAME = '' // header title 显示的名字
 
 // === sidebar
 export const SIDEBAR = {
   avatar: require('@/assets/images/avatar.jpeg'), // 侧边栏头像
-  title: '郭大大', // 标题
-  subTitle: '前端打杂人员，略微代码洁癖', // 子标题
+  title: '', // 标题
+  subTitle: '', // 子标题
   // 个人主页
   homepages: {
-    github: 'https://github.com/gershonv',
-    juejin: 'https://juejin.im/user/5acac6c4f265da2378408f92',
+    github: '',
+    juejin: '',
   },
 }
 
@@ -162,7 +162,7 @@ const config = {
   PORT: 6060, // 启动端口
   ADMIN_GITHUB_LOGIN_NAME: 'gershonv', // 博主的 github 登录的账户名 user
   GITHUB: {
-    client_id: 'c6a96a84105bb0be1fe5',
+    client_id: '',
     client_secret: '',
     access_token_url: 'https://github.com/login/oauth/access_token',
     fetch_user_url: 'https://api.github.com/user', // 用于 oauth2
@@ -177,11 +177,11 @@ const config = {
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: 'guodadablog@163.com', // generated ethereal user
-        pass: '123456', // generated ethereal password 授权码 而非 密码
+        user: '', // generated ethereal user
+        pass: '', // generated ethereal password 授权码 而非 密码
       },
     },
-    subject: '郭大大的博客 - 您的评论获得新的回复！', // 主题
+    subject: '', // 主题
     text: '您的评论获得新的回复！',
     WEB_HOST: 'http://127.0.0.1:3000', // email callback url
   },
@@ -190,9 +190,9 @@ const config = {
     expiresIn: '720h', // token 有效期
   },
   DATABASE: {
-    database: 'test',
-    user: 'root',
-    password: '123456',
+    database: '',
+    user: '',
+    password: '',
     options: {
       host: 'localhost', // 连接的 host 地址
       dialect: 'mysql', // 连接到 mysql
