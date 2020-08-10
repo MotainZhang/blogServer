@@ -15,6 +15,9 @@ module.exports = (sequelize, dataTypes) => {
 	  isLike: dataTypes.INTEGER(1),
 	  // 点赞数量
 	  likeNum: dataTypes.INTEGER(11),
+	  likeUserIds: {
+	    type: dataTypes.TEXT //点赞过的用户id
+	  },
       createdAt: {
         type: dataTypes.DATE,
         defaultValue: dataTypes.NOW,

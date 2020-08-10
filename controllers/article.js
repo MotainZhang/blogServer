@@ -80,12 +80,12 @@ class ArticleController {
             { model: CategoryModel, attributes: ['name'] },
             {
               model: CommentModel,
-              attributes: ['id', 'content', 'createdAt','isLike','likeNum'],
+              attributes: ['id', 'content', 'createdAt','isLike','likeNum','likeUserIds'],
               include: [
                 { model: UserModel, as: 'user', attributes: ['id', 'username', 'role', 'github','avatarUrl'] },
                 {
                   model: ReplyModel,
-                  attributes: ['id', 'userId', 'content', 'createdAt','isLike','likeNum'],
+                  attributes: ['id', 'userId', 'content', 'createdAt','isLike','likeNum','likeUserIds'],
                   include: [{ model: UserModel, as: 'user', attributes: ['id', 'username', 'role', 'github','avatarUrl'] }]
                 }
               ]

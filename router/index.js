@@ -32,7 +32,7 @@ discussRouter
 	.post('/', DiscussController.create) // 创建评论或者回复 articleId 文章 id
 	.delete('/comment/:commentId', DiscussController.deleteComment) // 删除一级评论
 	.delete('/reply/:replyId', DiscussController.deleteReply) // 删除回复
-
+	.post('/updateLikeNum', DiscussController.updateLikeNum)//更新点赞数量
 router.use('/blog/discuss', discussRouter.routes())
 
 // tag category
