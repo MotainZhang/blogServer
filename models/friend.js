@@ -1,31 +1,19 @@
 const moment = require('moment')
 // article 表
 module.exports = (sequelize, dataTypes) => {
-	const Comment = sequelize.define(
-		'comment', {
+	const Friend = sequelize.define(
+		'friend', {
 			id: {
 				type: dataTypes.INTEGER(11),
 				primaryKey: true,
 				autoIncrement: true
 			},
-			articleId: dataTypes.INTEGER(11), // 评论所属文章 id
 			content: {
 				type: dataTypes.TEXT,
 				allowNull: false
 			}, // 评论详情
-			// 是否点赞过
-			isLike: dataTypes.INTEGER(1),
-			// 点赞数量
-			likeNum: dataTypes.INTEGER(11),
-			likeUserIds: {
-				type: dataTypes.TEXT //点赞过的用户id
-			},
 			images: {
 				type: dataTypes.TEXT //存储的图片地址
-			},
-			// 是否为社区类型
-			commentType: {
-				type: dataTypes.STRING(255)
 			},
 			createdAt: {
 				type: dataTypes.DATE,
@@ -46,25 +34,23 @@ module.exports = (sequelize, dataTypes) => {
 		}
 	)
 
-	Comment.associate = models => {
-		Comment.belongsTo(models.article, {
-			as: 'article',
-			foreignKey: 'articleId',
-			targetKey: 'id',
-			constraints: false
-		})
-
-		Comment.belongsTo(models.user, {
+	Friend.associate = models => {
+		Friend.belongsTo(models.user, {
 			foreignKey: 'userId',
 			targetKey: 'id',
 			constraints: false
 		})
-		Comment.hasMany(models.reply, {
-			foreignKey: 'commentId',
+		Friend.hasMany(models.friendReply, {
+			foreignKey: 'friendId',
+			sourceKey: 'id',
+			constraints: false // 在表之间添加约束意味着当使用 sequelize.sync 时，表必须以特定顺序在数据库中创建表。我们可以向其中一个关联传递
+		})
+		Friend.hasMany(models.friendLike, {
+			foreignKey: 'friendId',
 			sourceKey: 'id',
 			constraints: false // 在表之间添加约束意味着当使用 sequelize.sync 时，表必须以特定顺序在数据库中创建表。我们可以向其中一个关联传递
 		})
 	}
 
-	return Comment
+	return Friend
 }

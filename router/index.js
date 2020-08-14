@@ -6,7 +6,7 @@ const UserController = require('../controllers/user')
 const ArticleController = require('../controllers/article')
 const DiscussController = require('../controllers/discuss')
 const TagController = require('../controllers/tag')
-
+const FriendController = require('../controllers/friend')
 // ==== article router
 const articleRouter = new Router()
 
@@ -32,8 +32,19 @@ discussRouter
 	.post('/', DiscussController.create) // 创建评论或者回复 articleId 文章 id
 	.delete('/comment/:commentId', DiscussController.deleteComment) // 删除一级评论
 	.delete('/reply/:replyId', DiscussController.deleteReply) // 删除回复
-	.post('/updateLikeNum', DiscussController.updateLikeNum)//更新点赞数量
+	.post('/updateLikeNum', DiscussController.updateLikeNum) //更新点赞数量
 router.use('/blog/discuss', discussRouter.routes())
+
+// friend router
+const friendController = new Router()
+friendController
+	.post('/', FriendController.create) // 创建评论或者回复 articleId 文章 id
+	.delete('/comment/:commentId', FriendController.deleteComment) // 删除一级评论
+	.delete('/reply/:replyId', FriendController.deleteReply) // 删除回复
+	.post('/updateLikeNum', FriendController.updateLikeNum) //更新点赞数量
+	.post('/delImage', FriendController.delImage) //删除图库图片
+	.post('/getFriendComment', FriendController.getFriendComment) //获取点赞列表
+router.use('/blog/friend', friendController.routes())
 
 // tag category
 router.get('/blog/tag/list', TagController.getTagList) // 获取所有的 tag 列表
