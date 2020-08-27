@@ -44,6 +44,7 @@ friendController
 	.post('/updateLikeNum', FriendController.updateLikeNum) //更新点赞数量
 	.post('/delImage', FriendController.delImage) //删除图库图片
 	.post('/getFriendComment', FriendController.getFriendComment) //获取点赞列表
+	.post('/findById', FriendController.findById) // 获取指定朋友圈详情
 router.use('/blog/friend', friendController.routes())
 
 // tag category

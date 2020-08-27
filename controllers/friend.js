@@ -52,9 +52,9 @@ class FriendController {
 						userId,
 						content,
 						friendId,
-						userName:ctx.request.body.userName,
-						replyUserId:ctx.request.body.replyUserId,
-						replyUserName:ctx.request.body.replyUserName,
+						userName: ctx.request.body.userName,
+						replyUserId: ctx.request.body.replyUserId,
+						replyUserName: ctx.request.body.replyUserName,
 					})
 				}
 				ctx.client(200, 'success')
@@ -97,6 +97,9 @@ class FriendController {
 	}
 	//获取列表
 	static async getFriendComment(ctx) {
+		const {
+			page = 1, pageSize = 10, preview = 1
+		} = ctx.request.body
 		const data = await FriendModel.findAndCountAll({
 			include: [{
 					model: FriendReplyModel,
@@ -113,12 +116,58 @@ class FriendController {
 					attributes: ['id', 'friendId', 'createdAt', 'userId', 'userName', 'isPraise'],
 				}
 			],
+			offset: (page - 1) * pageSize,
+			limit: parseInt(pageSize),
 			row: true,
 			order: [
 				['createdAt', 'DESC']
 			]
 		})
-		ctx.client(200, '获取成功', data)
+		if (preview === 1) {
+			data.rows.forEach(d => {
+				d.content = d.content.slice(0, 1000) // 只是获取预览，减少打了的数据传输。。。
+			})
+		}
+		ctx.client(200, 'success', data)
+	}
+	// 获取单个朋友圈详情
+	static async findById(ctx) {
+		const validator = ctx.validate({ ...ctx.request.body,
+			...ctx.request.body
+		}, {
+			id: Joi.number().required(),
+		})
+		if (validator) {
+			try {
+				const data = await FriendModel.findOne({
+					where: {
+						id: ctx.request.body.id
+					},
+					include: [{
+							model: FriendReplyModel,
+						},
+						{
+							model: UserModel,
+							as: 'user',
+							attributes: {
+								exclude: ['updatedAt', 'password']
+							}
+						},
+						{
+							model: FriendlikeModel,
+							attributes: ['id', 'friendId', 'createdAt', 'userId', 'userName', 'isPraise'],
+						}
+					],
+					row: true,
+					order: [
+						['createdAt', 'DESC']
+					]
+				})
+				ctx.client(200, 'success', data)
+			} catch (error) {
+				throw error
+			}
+		}
 	}
 	static async deleteReply(ctx) {
 		const validator = ctx.validate(ctx.params, {
